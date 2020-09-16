@@ -42,19 +42,6 @@ echo "plugins=(git colored-man colorize pip python brew osx zsh-syntax-highlight
 echo ". `brew --prefix`/etc/profile.d/z.sh" >> ~/.zshrc-ext
 echo "disable r functions" >> ~/.zshrc-ext
 
-# Miro
-echo -n "installing miro..."
-mdfind "kMDItemKind == 'Application'" | grep Miro >/dev/null 2>&1
-res=$?
-if [ $res -ne 0 ]; then 
-  wget -O /tmp/miro.dmg "https://desktop.realtimeboard.com/platforms/darwin/Miro%20-%20formerly%20RealtimeBoard.dmg"
-  hdiutil mount /tmp/miro.dmg
-  sudo cp -R "/Volumes/Miro - formerly RealtimeBoard/Miro - formerly RealtimeBoard.app" /Applications/Miro.app
-  hdiutil unmount "/Volumes/Miro - formerly RealtimeBoard/"
-fi
-echo "done"
-
-
 echo "setting up git"
 echo "username:"
 read gitUsername
