@@ -8,28 +8,24 @@ npmGlobals=("now" "marko-cli" "http-server" "lasso-cli" "npm-check-updates" "typ
 echo -n "setting key repeat..."
 defaults write -g InitialKeyRepeat -int 13 # normal minimum is 15 (225 ms)
 defaults write -g KeyRepeat -int 2 # normal minimum is 2 (30 ms)
-echo "done"
+
 echo -n "cleaning toolbar..."
 defaults write com.apple.dock persistent-apps -array
-echo "done"
 
 # Install Brew
 echo -n "installing brew..."
 command -v brew >/dev/null 2>&1 || { echo >&2 "Installing Homebrew Now"; \
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; }
 brew tap homebrew/cask-drivers
-echo "done"
 
 for i in ${brewCask[@]}; do
   echo -n "installing $i..."
   brew cask list $i >/dev/null 2>&1 || brew cask install $i
-  echo "done"
 done
 
 for i in ${brew[@]}; do
   echo -n "installing $i..."
   brew list $i >/dev/null 2>&1 || brew install $i
-  echo "done"
 done
 
 
@@ -42,8 +38,6 @@ else
   echo "source ~/.zshrc-ext" >> ~/.zshrc
   chsh -s /usr/local/bin/zsh
 fi
-echo "done"
-
 echo "plugins=(git colored-man colorize pip python brew osx zsh-syntax-highlighting)" > ~/.zshrc-ext
 echo ". `brew --prefix`/etc/profile.d/z.sh" >> ~/.zshrc-ext
 echo "disable r functions" >> ~/.zshrc-ext
@@ -66,7 +60,6 @@ echo "username:"
 read gitUsername
 echo "email:"
 read gitEmail
-
 git config --global user.email "$gitEmail"
 git config --global user.name "$gitUsername"
 git config --global pager.branch false
@@ -88,14 +81,10 @@ if [ $nvmExists -ne 0 ]; then
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
   nvm install $nodeLatest 
 fi
-
 for i in ${npmGlobals[@]}; do
   echo -n "installing $i..."
   npm install -g $i
-  echo "done"
 done
-
-echo "done"
 
 # Go paths
 echo 'export GOPATH="${HOME}/.go"' >> ~/.zshrc-ext
